@@ -3,5 +3,5 @@
 .idea/tasks.xml
 .gradle
 /*/*.iml
-gradle.xml
+.idea/gradle.xml
 .idea/libraries
