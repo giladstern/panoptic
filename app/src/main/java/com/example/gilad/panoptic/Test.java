@@ -9,6 +9,6 @@ public class Test extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        //This is a comment
+        //This is a comment.
     }
 }
