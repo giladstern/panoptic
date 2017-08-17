@@ -1,22 +1,29 @@
 package com.example.gilad.panoptic;
 
+import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Raaz on 12/08/2017.
  */
 
 public class ResponseClass {
-    String greetings;
+    String data;
 
-    public String getGreetings() {
-        return greetings;
+    public String getData() {
+        return data;
     }
 
-    public void setGreetings(String greetings) {
-        this.greetings = greetings;
+    public void setGreetings(String data) {
+
+        this.data = data;
     }
 
-    public ResponseClass(String greetings) {
-        this.greetings = greetings;
+    public ResponseClass(String data) {
+
+        this.data = data;
     }
 
     public ResponseClass() {

@@ -28,4 +28,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.amazonaws:aws-android-sdk-core:2.4.+'
     compile 'com.amazonaws:aws-android-sdk-lambda:2.4.+'
+    compile 'com.google.code.gson:gson:2.6.+'
 }
