@@ -2,4 +2,6 @@
     <string name="app_name">panoptic</string>
     <string name="eye_icon">Icon</string>
     <string name="action_search">Search</string>
+    <string name="search_hint">#Trump #North #Korea</string>
+    <string name="settings">settings</string>
 </resources>

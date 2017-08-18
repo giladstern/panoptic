@@ -5,14 +5,11 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.lambdainvoker.*;
@@ -21,43 +18,20 @@ import com.amazonaws.regions.Regions;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.List;
-
 
 public class Test extends AppCompatActivity {
 
-    private ActionMenuView amvMenu;
-
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.custom_menu, menu);
-//
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        SearchView searchView =
-//                (SearchView) MenuItemCompat.getActionView(searchItem);
-//
-//        // Configure the search info and add any event listeners...
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.custom_menu, amvMenu.getMenu());
+        getMenuInflater().inflate(R.menu.custom_menu, menu);
 
-        MenuItem searchItem = amvMenu.getMenu().findItem(R.id.action_search);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        // use amvMenu here
+        // Configure the search info and add any event listeners...
+
         return super.onCreateOptionsMenu(menu);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Do your actions here
-        return true;
-    }
-
 
 
     @Override
@@ -65,28 +39,8 @@ public class Test extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        //Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        //setSupportActionBar(myToolbar);
-
-        Toolbar t = (Toolbar) findViewById(R.id.my_toolbar);
-        amvMenu = (ActionMenuView) t.findViewById(R.id.amvMenu);
-        amvMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Debug", "HERE!");
-            }
-        });
-        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Log.d("Debug", "Item clicked");
-                return onOptionsItemSelected(menuItem);
-            }
-        });
-
-        setSupportActionBar(t);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         //This is a comment.
         // Create an instance of CognitoCachingCredentialsProvider
@@ -124,16 +78,17 @@ public class Test extends AppCompatActivity {
                     return;
                 }
 
-                List<Cluster> clusters = null;
+                JSONArray jsonArray = null;
 
                 try {
-                    clusters = Cluster.parseClusters(result.getData());
+                    String data = result.getData().replace("': u", "': ").replace("\": u","\": ");
+                    jsonArray = new JSONArray(data);
                 } catch(JSONException e){
                     Log.d("Debug", e.getMessage());
                 }
 
-                if (clusters != null) {
-                    Log.d("Debug", clusters.toString());
+                if (jsonArray != null) {
+                    Log.d("Debug", jsonArray.toString());
                 } else {
                     Log.d("Debug", "NULL!");
                 }
