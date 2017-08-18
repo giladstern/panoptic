@@ -18,6 +18,9 @@ import com.amazonaws.regions.Regions;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Test extends AppCompatActivity {
 
@@ -79,17 +82,16 @@ public class Test extends AppCompatActivity {
                     return;
                 }
 
-                JSONArray jsonArray = null;
+                List<Cluster> clusters = null;
 
                 try {
-                    String data = result.getData().replace("': u", "': ").replace("\": u","\": ");
-                    jsonArray = new JSONArray(data);
+                    clusters = Cluster.parseClusters(result.getData());
                 } catch(JSONException e){
                     Log.d("Debug", e.getMessage());
                 }
 
-                if (jsonArray != null) {
-                    Log.d("Debug", jsonArray.toString());
+                if (clusters != null) {
+                    Log.d("Debug", clusters.toString());
                 } else {
                     Log.d("Debug", "NULL!");
                 }
