@@ -4,6 +4,7 @@
     android:layout_height="fill_parent">
 
     <ImageView
+        android:theme="@style/AppThemeNoActionBar"
         android:id="@+id/splashscreen"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
