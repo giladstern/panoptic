@@ -59,7 +59,7 @@ public class Test extends AppCompatActivity {
                 JSONArray jsonArray = null;
 
                 try {
-                    String data = result.getData().replace("': u", "': ").replace("\": u","\": ");
+                    String data = result.getData().replace("u'", "'").replace("u\"","\"");
                     jsonArray = new JSONArray(data);
                 } catch(JSONException e){
                     Log.d("Debug", e.getMessage());
