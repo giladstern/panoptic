@@ -1,6 +1,11 @@
 package com.example.gilad.panoptic;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.lambdainvoker.*;
@@ -18,8 +25,13 @@ import com.amazonaws.regions.Regions;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.concurrent.Exchanger;
 
 
 public class Test extends AppCompatActivity {
@@ -43,8 +55,11 @@ public class Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setNavigationIcon(R.drawable.ic_top_menu_small);
+        myToolbar.setLogo(R.drawable.ic_top_menu_logo);
         setSupportActionBar(myToolbar);
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
+
 
         //This is a comment.
         // Create an instance of CognitoCachingCredentialsProvider
@@ -98,6 +113,27 @@ public class Test extends AppCompatActivity {
 
                 // Do a toast
                 Toast.makeText(Test.this, result.getData(), Toast.LENGTH_LONG).show();
+
+
+                Bitmap my_image = null;
+
+                    new AsyncTask<String, Void, Bitmap>() {
+                        @Override
+                        protected Bitmap doInBackground(String... string) {
+                            try {
+                                URL url = new URL(string[0]);
+                                return BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                            } catch (Exception e){return null;}
+                        }
+
+                        protected void onPostExecute(Bitmap bitmap){
+                            ImageView imgView=(ImageView) findViewById(R.id.imgView);
+                            imgView.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap,250,250));
+                        }
+                    }.execute(clusters.get(0).articles.get(0).url);
+
+
+
             }
         }.execute(request);
     }
