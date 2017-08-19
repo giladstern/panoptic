@@ -31,7 +31,6 @@ public class ArticleWebpage extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +46,6 @@ public class ArticleWebpage extends AppCompatActivity {
         browser.getSettings().setJavaScriptEnabled(true);
         browser.setWebViewClient(new MyWebClient());
         browser.loadUrl(circleClicked.getStringExtra("url"));
-
-
 
     }
 }

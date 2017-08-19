@@ -1,11 +1,13 @@
 package com.example.gilad.panoptic;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -55,6 +57,8 @@ public class Test extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -62,11 +66,13 @@ public class Test extends AppCompatActivity {
         outState.putSerializable("clusters", (Serializable) clusters);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setLogo(R.drawable.ic_top_menu_logo);
         setSupportActionBar(myToolbar);
@@ -129,11 +135,6 @@ public class Test extends AppCompatActivity {
                     } else {
                         Log.d("Debug", "NULL!");
                     }
-
-                    //Toast.makeText(Test.this, result.getData(), Toast.LENGTH_LONG).show();
-
-//                Picasso.with(Test.this).load(clusters.get(1).articles.get(0).img)
-//                        .resize(100,100).centerCrop().into((ImageView) findViewById(R.id.imgView));
 
                     ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
 
