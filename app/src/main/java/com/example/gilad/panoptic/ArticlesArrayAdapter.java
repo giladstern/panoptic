@@ -117,6 +117,7 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
 
     @Override
     public int getCount() {
-        return articleClusters.size();
+        if (articleClusters != null) return articleClusters.size();
+        else return 0;
     }
 }
