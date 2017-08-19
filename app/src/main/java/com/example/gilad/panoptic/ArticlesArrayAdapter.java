@@ -8,9 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,16 +19,18 @@ import java.util.List;
  * Created by Raaz on 19/08/2017.
  */
 
-public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> {
+public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filterable {
 
-    Context context;
-    int layoutResourceId;
-    List<Cluster> articleClusters = null;
-
+    private Context context;
+    private int layoutResourceId;
+    private List<Cluster> unfiltered = null;
+    private List<Cluster> articleClusters = null;
+    private ArticleFilter filter = new ArticleFilter();
 
     public ArticlesArrayAdapter(@NonNull Context context, @LayoutRes int layoutResourceId, @NonNull List<Cluster> articleClusters) {
         super(context, layoutResourceId, articleClusters);
         this.articleClusters = articleClusters;
+        this.unfiltered = articleClusters;
         this.context = context;
         this.layoutResourceId = layoutResourceId;
     }
@@ -42,7 +42,6 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> {
         }
         return tagsString;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -80,5 +79,44 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> {
         ImageView thumbnail;
         TextView hashtags;
         ArticleAxisView articleAxis;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public class ArticleFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+
+            final List<Cluster> res = new ArrayList<>();
+
+            for (Cluster cluster: unfiltered){
+                for (String tag : cluster.tags){
+                    if (tag.startsWith((String) constraint)){
+                        res.add(cluster);
+                        break;
+                    }
+                }
+            }
+
+            filterResults.values = res;
+            filterResults.count = res.size();
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            articleClusters = (List<Cluster>) results.values;
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return articleClusters.size();
     }
 }
