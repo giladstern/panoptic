@@ -59,12 +59,12 @@ public class Test extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable("clusters", (Serializable) clusters);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putSerializable("clusters", (Serializable) clusters);
+//    }
 
 
     @Override
@@ -77,64 +77,65 @@ public class Test extends AppCompatActivity {
         myToolbar.setLogo(R.drawable.ic_top_menu_logo);
         setSupportActionBar(myToolbar);
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-
-        if(savedInstanceState != null && savedInstanceState.getSerializable("clusters") != null) {
-
-            clusters = (List<Cluster>) savedInstanceState.getSerializable("clusters");
-            ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
-
-            ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
-
-            articlesListView.setAdapter(adapter);
-
-        } else {
-            // Create an instance of CognitoCachingCredentialsProvider
-            CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
-                    this.getApplicationContext(), "us-east-2:fd992983-b013-4647-82be-85cafbc04dd5", Regions.US_EAST_2);
-
-            // Create LambdaInvokerFactory, to be used to instantiate the Lambda proxy.
-            LambdaInvokerFactory factory = new LambdaInvokerFactory(this.getApplicationContext(),
-                    Regions.US_EAST_2, cognitoProvider);
-
-            // Create the Lambda proxy object with a default Json data binder.
-            // You can provide your own data binder by implementing
-            // LambdaDataBinder.
-            final MyInterface myInterface = factory.build(MyInterface.class);
-
-            RequestClass request = new RequestClass("John", "Doe");
-            // The Lambda function invocation results in a network call.
-            // Make sure it is not called from the main thread.
-            new AsyncTask<RequestClass, Void, ResponseClass>() {
-                @Override
-                protected ResponseClass doInBackground(RequestClass... params) {
-                    // invoke "echo" method. In case it fails, it will throw a
-                    // LambdaFunctionException.
-                    try {
-                        return myInterface.AndroidBackendLambdaFunction(params[0]);
-                    } catch (LambdaFunctionException lfe) {
-                        Log.e("Tag", "Failed to invoke echo", lfe);
-                        return null;
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(ResponseClass result) {
-                    if (result == null) {
+//        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
+//
+//        if(savedInstanceState != null && savedInstanceState.getSerializable("clusters") != null) {
+//
+//            clusters = (List<Cluster>) savedInstanceState.getSerializable("clusters");
+//            ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
+//
+//            ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
+//
+//            articlesListView.setAdapter(adapter);
+//
+//        } else {
+//            // Create an instance of CognitoCachingCredentialsProvider
+//            CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
+//                    this.getApplicationContext(), "us-east-2:fd992983-b013-4647-82be-85cafbc04dd5", Regions.US_EAST_2);
+//
+//            // Create LambdaInvokerFactory, to be used to instantiate the Lambda proxy.
+//            LambdaInvokerFactory factory = new LambdaInvokerFactory(this.getApplicationContext(),
+//                    Regions.US_EAST_2, cognitoProvider);
+//
+//            // Create the Lambda proxy object with a default Json data binder.
+//            // You can provide your own data binder by implementing
+//            // LambdaDataBinder.
+//            final MyInterface myInterface = factory.build(MyInterface.class);
+//
+//            RequestClass request = new RequestClass("John", "Doe");
+//            // The Lambda function invocation results in a network call.
+//            // Make sure it is not called from the main thread.
+//            new AsyncTask<RequestClass, Void, ResponseClass>() {
+//                @Override
+//                protected ResponseClass doInBackground(RequestClass... params) {
+//                    // invoke "echo" method. In case it fails, it will throw a
+//                    // LambdaFunctionException.
+//                    try {
+//                        return myInterface.AndroidBackendLambdaFunction(params[0]);
+//                    } catch (LambdaFunctionException lfe) {
+//                        Log.e("Tag", "Failed to invoke echo", lfe);
+//                        return null;
+//                    }
+//                }
+//
+//                @Override
+//                protected void onPostExecute(ResponseClass result) {
+                    String data = getIntent().getStringExtra("data");
+                    if (data == "") {
                         return;
                     }
-
+//
                     try {
-                        clusters = Cluster.parseClusters(result.getData());
+                        clusters = Cluster.parseClusters(data);
                     } catch (JSONException e) {
                         Log.d("Debug", e.getMessage());
                     }
-
-                    if (clusters != null) {
-                        Log.d("Debug", clusters.toString());
-                    } else {
-                        Log.d("Debug", "NULL!");
-                    }
+//
+//                    if (clusters != null) {
+//                        Log.d("Debug", clusters.toString());
+//                    } else {
+//                        Log.d("Debug", "NULL!");
+//                    }
 
                     ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
 
@@ -142,8 +143,10 @@ public class Test extends AppCompatActivity {
 
                     articlesListView.setAdapter(adapter);
 
-                }
-            }.execute(request);
-        }
+
+
+ //               }
+ //           }.execute(request);
+ //       }
     }
 }
