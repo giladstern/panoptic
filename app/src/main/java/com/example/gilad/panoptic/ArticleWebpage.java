@@ -45,7 +45,10 @@ public class ArticleWebpage extends AppCompatActivity {
 
         WebView browser = (WebView) findViewById(R.id.webview);
         browser.getSettings().setJavaScriptEnabled(true);
+        browser.setWebViewClient(new MyWebClient());
         browser.loadUrl(circleClicked.getStringExtra("url"));
+
+
 
     }
 }
