@@ -16,7 +16,7 @@
         android:id="@+id/imgView"
         android:layout_width="300dip"
         android:layout_height="300dip"
-        android:src="@drawable/news_img"
+        android:src="@drawable/ic_top_menu"
         android:layout_gravity="center"
         android:layout_below="@+id/my_toolbar"/>
 </RelativeLayout>

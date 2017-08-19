@@ -3,6 +3,7 @@ package com.example.gilad.panoptic;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.os.StrictMode;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.amazonaws.mobileconnectors.lambdainvoker.*;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
+import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -114,23 +116,8 @@ public class Test extends AppCompatActivity {
                 // Do a toast
                 Toast.makeText(Test.this, result.getData(), Toast.LENGTH_LONG).show();
 
-
-                Bitmap my_image = null;
-
-                    new AsyncTask<String, Void, Bitmap>() {
-                        @Override
-                        protected Bitmap doInBackground(String... string) {
-                            try {
-                                URL url = new URL(string[0]);
-                                return BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            } catch (Exception e){return null;}
-                        }
-
-                        protected void onPostExecute(Bitmap bitmap){
-                            ImageView imgView=(ImageView) findViewById(R.id.imgView);
-                            imgView.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap,250,250));
-                        }
-                    }.execute(clusters.get(0).articles.get(0).url);
+                Picasso.with(Test.this).load(clusters.get(1).articles.get(0).img)
+                        .resize(100,100).centerCrop().into((ImageView) findViewById(R.id.imgView));
 
 
 
