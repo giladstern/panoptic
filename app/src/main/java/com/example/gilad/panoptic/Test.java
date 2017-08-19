@@ -16,7 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,13 +115,16 @@ public class Test extends AppCompatActivity {
                     Log.d("Debug", "NULL!");
                 }
 
-                // Do a toast
-                Toast.makeText(Test.this, result.getData(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(Test.this, result.getData(), Toast.LENGTH_LONG).show();
 
-                Picasso.with(Test.this).load(clusters.get(1).articles.get(0).img)
-                        .resize(100,100).centerCrop().into((ImageView) findViewById(R.id.imgView));
+//                Picasso.with(Test.this).load(clusters.get(1).articles.get(0).img)
+//                        .resize(100,100).centerCrop().into((ImageView) findViewById(R.id.imgView));
 
+                ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
 
+                ListView articlesListView = (ListView)findViewById(R.id.articles_list_view);
+
+                articlesListView.setAdapter(adapter);
 
             }
         }.execute(request);

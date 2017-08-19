@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 /**
  * Created by Gilad on 8/18/2017.

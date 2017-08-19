@@ -12,11 +12,11 @@ public class Article {
     public String url;
     public String img;
 
-    public Article(String t, String s, String u, String i){
-        this.title = t;
-        this.source = s;
-        this.url = u;
-        this.img = i;
+    public Article(String title, String source, String url, String img){
+        this.title = title;
+        this.source = source;
+        this.url = url;
+        this.img = img;
     }
 
     public Article(JSONObject object) throws JSONException{

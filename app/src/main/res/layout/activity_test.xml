@@ -4,6 +4,7 @@
     android:theme="@style/AppThemeNoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -12,13 +13,16 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="300dip"
-        android:layout_height="300dip"
-        android:src="@drawable/ic_top_menu"
-        android:layout_gravity="center"
-        android:layout_below="@+id/my_toolbar"/>
+
+    <ListView
+        android:id="@+id/articles_list_view"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>
 
 
