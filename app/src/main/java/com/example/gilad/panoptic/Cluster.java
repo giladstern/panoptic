@@ -4,13 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Gilad on 8/18/2017.
  */
-public class Cluster {
+public class Cluster implements Serializable{
     List<Article> articles;
     List<String> tags;
 

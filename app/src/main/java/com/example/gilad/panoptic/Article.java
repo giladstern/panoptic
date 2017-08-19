@@ -3,10 +3,12 @@ package com.example.gilad.panoptic;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Gilad on 8/18/2017.
  */
-public class Article {
+public class Article  implements Serializable{
     public String title;
     public String source;
     public String url;
