@@ -25,7 +25,8 @@ public class ArticleAxisView extends RelativeLayout{
     private Paint paint;
     private float cy;
     private List<ArticleCircle> articleCircles = new ArrayList<>();
-    private int jump;
+    private int width = 0;
+    private ArrayList<Float> rand = null;
 
     public ArticleAxisView(Context context) {
         this(context, null, null);
@@ -67,24 +68,29 @@ public class ArticleAxisView extends RelativeLayout{
 
         this.cy = getPaddingTop() + (h - getPaddingTop() - getPaddingBottom()) / 2;
 
-        int width = w - getPaddingLeft() - getPaddingRight();
-
-        this.jump = width / (this.articleCircles.size() + 1);
+        width = w - getPaddingLeft() - getPaddingRight();
 
         updateAxisLayout();
 
     }
 
     private void updateAxisLayout() {
+        int jump = width / (this.articleCircles.size() + 1);
         if (articleCircles.size() > 0) {
             Random r = new Random();
+            if (rand == null) {
+                rand = new ArrayList<>();
+                for (int i = 0; i < articleCircles.size(); i++){
+                    rand.add(r.nextFloat());
+                }
+            }
             LayoutParams layoutParams = new LayoutParams(50, 50);
             layoutParams.addRule(ALIGN_PARENT_LEFT | CENTER_VERTICAL);
 
             if (jump > 0) {
                 // place circles
                 for (int i = 0; i < articleCircles.size(); i++) {
-                    int randomMovement = -(jump / 4) + r.nextInt(jump / 2);
+                    int randomMovement = (int) (jump * (rand.get(i) / 2 - 0.25));
                     LayoutParams params = new LayoutParams(layoutParams);
                     params.leftMargin = (jump * (i + 1) + randomMovement);
                     articleCircles.get(i).setLayoutParams(params);
@@ -105,6 +111,11 @@ public class ArticleAxisView extends RelativeLayout{
     }
 
     public void updateAxisFromCluster(Cluster cluster, final Context context) {
+        if (cluster != null && articleCircles != null){
+            if (cluster.articles.size() != articleCircles.size()){
+                rand = null;
+            }
+        }
         removeAllViews();
         articleCircles.clear();
 
