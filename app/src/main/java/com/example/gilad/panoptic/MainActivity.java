@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
         /** Duration of wait **/
-        private final int SPLASH_DISPLAY_LENGTH = 500;
+        private final int SPLASH_DISPLAY_LENGTH = 2000;
 
         /** Called when the activity is first created. */
         @Override

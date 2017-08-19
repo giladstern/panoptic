@@ -1,11 +1,13 @@
 package com.example.gilad.panoptic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -34,10 +36,6 @@ public class ArticleAxisView extends RelativeLayout{
         this(context, attrs, null);
 
         List<Article> articles = new ArrayList<>();
-        articles.add(new Article("","","",""));
-        articles.add(new Article("","","",""));
-        articles.add(new Article("","","",""));
-        articles.add(new Article("","","",""));
 
         for (Article article: articles) {
             ArticleCircle circle = new ArticleCircle(context, "");
@@ -61,18 +59,6 @@ public class ArticleAxisView extends RelativeLayout{
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
         setWillNotDraw(false);
-
-//        if (cluster != null) {
-//            // Create circles
-//            for (Article article : cluster.articles) {
-//                ArticleCircle circle = new ArticleCircle(context, article.url);
-//                articleCircles.add(circle);
-//            }
-//        }
-//
-//        for (ArticleCircle articleCircle: articleCircles){
-//            addView(articleCircle);
-//        }
     }
 
     @Override
@@ -118,7 +104,7 @@ public class ArticleAxisView extends RelativeLayout{
         canvas.drawLine(getPaddingLeft(), cy, getWidth() - getPaddingRight(), cy, paint);
     }
 
-    public void updateAxisFromCluster(Cluster cluster, Context context) {
+    public void updateAxisFromCluster(Cluster cluster, final Context context) {
         removeAllViews();
         articleCircles.clear();
 
@@ -127,6 +113,15 @@ public class ArticleAxisView extends RelativeLayout{
             for (Article article : cluster.articles) {
                 ArticleCircle circle = new ArticleCircle(context, article.url);
                 articleCircles.add(circle);
+                circle.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openArticle = new Intent(context, ArticleWebpage.class);
+                        String url = ((ArticleCircle)view).getUrl();
+                        openArticle.putExtra("url", url);
+                        context.startActivity(openArticle);
+                    }
+                });
             }
         }
 

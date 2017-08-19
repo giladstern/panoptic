@@ -14,16 +14,11 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <ListView
-        android:id="@+id/articles_list_view"
-        android:divider="@null"
-        android:dividerHeight="0dp"
+    <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webview"
+        android:layout_below="@+id/my_toolbar"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_alignParentStart="true"
-        android:paddingTop="5dp"/>
+        />
 
 </RelativeLayout>
-
-
