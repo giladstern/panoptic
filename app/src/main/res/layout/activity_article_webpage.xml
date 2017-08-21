@@ -21,4 +21,19 @@
         android:layout_height="fill_parent"
         />
 
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/my_toolbar"
+    >
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent" android:layout_height="4dp"
+                android:layout_below="@+id/my_toolbar"
+                android:layout_gravity="center"
+
+        />
+    </FrameLayout>
+
 </RelativeLayout>
