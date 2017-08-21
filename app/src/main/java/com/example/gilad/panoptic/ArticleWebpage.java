@@ -54,7 +54,7 @@ public class ArticleWebpage extends AppCompatActivity {
         browser.setWebChromeClient(new WebChromeClient(){
             public void onProgressChanged(WebView view, int progress){
                 progressBar.setProgress(progress);
-                if (progress >= 85){
+                if (progress == 100){
                     progressBar.setVisibility(ProgressBar.GONE);
                 }
             }
