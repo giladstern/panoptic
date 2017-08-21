@@ -41,6 +41,8 @@ public class ArticleWebpage extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setLogo(R.drawable.ic_top_menu_logo);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         Intent circleClicked = getIntent();
         browser = (WebView) findViewById(R.id.webview);

@@ -40,8 +40,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-
         if (savedInstanceState != null && savedInstanceState.getSerializable("clusters") != null) {
 
             clusters = (List<Cluster>) savedInstanceState.getSerializable("clusters");
