@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
         <uses-permission android:name="android.permission.INTERNET"/>
-
-        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
+        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme"
+                  android:screenOrientation="portrait"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
