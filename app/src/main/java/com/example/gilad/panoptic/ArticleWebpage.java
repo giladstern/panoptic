@@ -12,14 +12,19 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class ArticleWebpage extends AppCompatActivity {
 
     WebView browser = null;
+    ProgressBar progressBar = null;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.custom_menu, menu);
@@ -43,9 +48,17 @@ public class ArticleWebpage extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         Intent circleClicked = getIntent();
         browser = (WebView) findViewById(R.id.webview);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        browser.setWebChromeClient(new WebChromeClient(){
+            public void onProgressChanged(WebView view, int progress){
+                progressBar.setProgress(progress);
+                if (progress >= 85){
+                    progressBar.setVisibility(ProgressBar.GONE);
+                }
+            }
+        });
 
         if (savedInstanceState == null) {
             browser.getSettings().setJavaScriptEnabled(true);
