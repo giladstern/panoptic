@@ -9,9 +9,15 @@
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
 
-    <item android:id="@+id/settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_settings_white_24dp"
-        app:showAsAction="ifRoom|collapseActionView"/>
+    <!--<item-->
+        <!--android:id="@+id/menu_red"-->
+        <!--android:orderInCategory="1"-->
+        <!--android:showAsAction="never"-->
+        <!--android:title="@string/nyt"/>-->
+    <!--<item-->
+        <!--android:id="@+id/menu_green"-->
+        <!--android:orderInCategory="2"-->
+        <!--android:showAsAction="never"-->
+        <!--android:title="@string/breitbart"/>-->
 
 </menu>

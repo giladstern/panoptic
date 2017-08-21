@@ -4,4 +4,19 @@
     <string name="action_search">Search</string>
     <string name="search_hint">#Trump #North #Korea</string>
     <string name="settings">settings</string>
+    <string name="nyt">New York Times</string>
+    <string name="breitbart">Breitbart</string>
+    <string name="drawer_open">drawer_open</string>
+    <string name="drawer_close">drawer_close</string>
+
+    <string-array name="sports_array">
+        <item>Shuttle Badminton</item>
+        <item>Tennis</item>
+        <item>Table Tennis</item>
+        <item>Basket Ball</item>
+        <item>Foot Ball</item>
+        <item>Volley Ball</item>
+        <item>Hockey</item>
+        <item>Swimming</item>
+    </string-array>
 </resources>
