@@ -28,7 +28,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ArticleWebpage"></activity>
+        <activity android:name=".ArticleWebpage"
+                  android:configChanges="orientation|screenSize"
+        ></activity>
     </application>
 
 </manifest>
