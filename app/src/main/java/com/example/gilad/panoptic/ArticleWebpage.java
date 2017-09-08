@@ -1,32 +1,40 @@
 package com.example.gilad.panoptic;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
+
+import android.support.v4.app.ShareCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
 
 public class ArticleWebpage extends AppCompatActivity {
 
-    WebView browser = null;
-    ProgressBar progressBar = null;
+    private WebView browser = null;
+    private ProgressBar progressBar = null;
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.share_menu, menu);
+
+//        MenuItem item = menu.findItem(R.id.menu_item_share);
+//
+//        ShareActionProvider provider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+//
+//        Intent intent = new Intent();
+//
+//        intent.setAction(Intent.ACTION_SEND);
+//        intent.putExtra(Intent.EXTRA_TEXT, getIntent().getStringExtra("url"));
+//        intent.setType("text/plain");
+//
+//        provider.setShareIntent(Intent.createChooser(intent, "Share using"));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -36,6 +44,15 @@ public class ArticleWebpage extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.menu_item_share:
+                Intent intent = new Intent();
+
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, getIntent().getStringExtra("url"));
+                intent.setType("text/plain");
+
+                startActivity(Intent.createChooser(intent, "Share using"));
                 return true;
         }
         return super.onOptionsItemSelected(item);
