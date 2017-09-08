@@ -45,20 +45,13 @@
     <RelativeLayout
         android:id="@+id/profileBox"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/material_blue_grey_800"
+        android:layout_height="57dp"
+        android:background="@color/blue"
         android:padding="8dp" >
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_menu_white_24dp"
-            android:layout_marginTop="15dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_height="22dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/avatar"
@@ -68,20 +61,11 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rishabh"
+                android:text="News Sources"
                 android:textColor="#fff"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="4dp"
-                android:text="View Profile"
-                android:textColor="#fff"
-                android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>
         <!-- List of Actions (pages) -->
@@ -90,7 +74,7 @@
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_below="@+id/profileBox"
-            android:choiceMode="singleChoice"
+            android:choiceMode="multipleChoice"
             android:background="#ffffffff" />
 
 </RelativeLayout>

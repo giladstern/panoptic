@@ -26,13 +26,9 @@ import java.util.List;
 
 class NavItem {
     String mTitle;
-    String mSubtitle;
-    int mIcon;
 
-    public NavItem(String title, String subtitle, int icon) {
+    public NavItem(String title) {
         mTitle = title;
-        mSubtitle = subtitle;
-        mIcon = icon;
     }
 }
 
@@ -74,12 +70,12 @@ class DrawerListAdapter extends BaseAdapter {
         }
 
         TextView titleView = (TextView) view.findViewById(R.id.title);
-        TextView subtitleView = (TextView) view.findViewById(R.id.subTitle);
-        ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+        //TextView subtitleView = (TextView) view.findViewById(R.id.subTitle);
+        //ImageView iconView = (ImageView) view.findViewById(R.id.icon);
 
         titleView.setText( mNavItems.get(position).mTitle );
-        subtitleView.setText( mNavItems.get(position).mSubtitle );
-        iconView.setImageResource(mNavItems.get(position).mIcon);
+        //subtitleView.setText( mNavItems.get(position).mSubtitle );
+        //iconView.setImageResource(mNavItems.get(position).mIcon);
 
         return view;
     }
@@ -186,9 +182,9 @@ public class Test extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mNavItems.add(new NavItem("Home", "Meetup destination", R.drawable.ic_settings_white_24dp));
-        mNavItems.add(new NavItem("Preferences", "Change your preferences", R.drawable.ic_settings_white_24dp));
-        mNavItems.add(new NavItem("About", "Get to know about us", R.drawable.ic_settings_white_24dp));
+        mNavItems.add(new NavItem("Aljazeera"));
+        mNavItems.add(new NavItem("The New York Times"));
+        mNavItems.add(new NavItem("WSJ"));
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
