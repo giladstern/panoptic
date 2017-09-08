@@ -148,18 +148,24 @@ public class Test extends AppCompatActivity {
 * is selected.
 * */
     private void selectItemFromDrawer(int position) {
-        Fragment fragment = new PreferencesFragment();
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.mainContent, fragment)
-                .commit();
+        Log.d("MYINT", "value: " + position);
 
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mNavItems.get(position).mTitle);
+//        Toast.makeText(this, position,
+//                Toast.LENGTH_LONG).show();
+
+        //Fragment fragment = new PreferencesFragment();
+
+        //FragmentManager fragmentManager = getFragmentManager();
+        //fragmentManager.beginTransaction()
+        //        .replace(R.id.mainContent, fragment)
+        //        .commit();
+
+        //mDrawerList.setItemChecked(position, true);
+        //setTitle(mNavItems.get(position).mTitle);
 
         // Close the drawer
-        mDrawerLayout.closeDrawer(mDrawerPane);
+        //mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
     // Called when invalidateOptionsMenu() is invoked
@@ -223,7 +229,7 @@ public class Test extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //selectItemFromDrawer(position);
+                selectItemFromDrawer(position);
             }
         });
 
