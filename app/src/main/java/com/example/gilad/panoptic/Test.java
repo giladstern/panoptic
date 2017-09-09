@@ -234,21 +234,21 @@ public class Test extends AppCompatActivity {
         });
 
         String data = getIntent().getStringExtra("data");
-                    if (data == "") {
-                        return;
-                    }
+        if (data == "") {
+            return;
+        }
 
-                    try {
-                        clusters = Cluster.parseClusters(data);
-                    } catch (JSONException e) {
-                        Log.d("Debug", e.getMessage());
-                    }
+        try {
+            clusters = Cluster.parseClusters(data);
+        } catch (JSONException e) {
+            Log.d("Debug", e.getMessage());
+        }
 
-                    ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
-                    filter = adapter.getFilter();
-                    ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
+        ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
+        filter = adapter.getFilter();
+        ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
 
-                    articlesListView.setAdapter(adapter);
+        articlesListView.setAdapter(adapter);
 
     }
 }

@@ -24,18 +24,6 @@ public class ArticleWebpage extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.share_menu, menu);
 
-//        MenuItem item = menu.findItem(R.id.menu_item_share);
-//
-//        ShareActionProvider provider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
-//
-//        Intent intent = new Intent();
-//
-//        intent.setAction(Intent.ACTION_SEND);
-//        intent.putExtra(Intent.EXTRA_TEXT, getIntent().getStringExtra("url"));
-//        intent.setType("text/plain");
-//
-//        provider.setShareIntent(Intent.createChooser(intent, "Share using"));
-
         return super.onCreateOptionsMenu(menu);
     }
 

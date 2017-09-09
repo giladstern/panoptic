@@ -86,7 +86,7 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     }
 
     public class ArticleFilter extends Filter{
-
+        private List<String> sources = new ArrayList<>();
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults filterResults = new FilterResults();
@@ -112,6 +112,10 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
         protected void publishResults(CharSequence constraint, FilterResults results) {
             articleClusters = (List<Cluster>) results.values;
             notifyDataSetChanged();
+        }
+
+        public void updateSources(List<String> sources){
+            this.sources = sources;
         }
     }
 
