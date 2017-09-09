@@ -31,7 +31,6 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     private ArticleFilter filter = new ArticleFilter();
     private List<String> sources = new ArrayList<>();
 
-
     public ArticlesArrayAdapter(@NonNull Context context, @LayoutRes int layoutResourceId, @NonNull List<Cluster> articleClusters) {
         super(context, layoutResourceId, articleClusters);
         this.articleClusters = articleClusters;
@@ -154,6 +153,10 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     public void updateSources(List<String> NewSources){
         this.sources = NewSources;
 
+    }
+
+    public void updateClusters(List<Cluster> clusters) {
+        this.articleClusters = clusters;
     }
 
     @Override

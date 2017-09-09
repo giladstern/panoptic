@@ -182,6 +182,7 @@ public class Test extends AppCompatActivity {
             NewSources.add(map.get(position));
         }
         adapter.updateSources(NewSources);
+        adapter.updateClusters(clusters);
         filter.filter("");
     }
 
