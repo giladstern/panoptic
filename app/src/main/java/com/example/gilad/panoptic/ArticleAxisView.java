@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -39,12 +40,12 @@ public class ArticleAxisView extends RelativeLayout{
         List<Article> articles = new ArrayList<>();
 
         for (Article article: articles) {
-            ArticleCircle circle = new ArticleCircle(context, "");
-            this.articleCircles.add(circle);
+                ArticleCircle circle = new ArticleCircle(context, "");
+                this.articleCircles.add(circle);
         }
 
         for (ArticleCircle articleCircle: articleCircles){
-            Log.d("Debug","here");
+            //Log.d("Debug","here");
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(50, 50);
             layoutParams.addRule(CENTER_VERTICAL|ALIGN_PARENT_LEFT);
             addView(articleCircle,layoutParams);
@@ -122,17 +123,20 @@ public class ArticleAxisView extends RelativeLayout{
         if (cluster != null) {
             // Create circles
             for (Article article : cluster.articles) {
-                ArticleCircle circle = new ArticleCircle(context, article.url);
+                if (article.isDisplayed) {
+
+                    ArticleCircle circle = new ArticleCircle(context, article.url);
                 articleCircles.add(circle);
                 circle.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent openArticle = new Intent(context, ArticleWebpage.class);
-                        String url = ((ArticleCircle)view).getUrl();
+                        String url = ((ArticleCircle) view).getUrl();
                         openArticle.putExtra("url", url);
                         context.startActivity(openArticle);
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.*;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,6 +29,8 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     private List<Cluster> unfiltered = null;
     private List<Cluster> articleClusters = null;
     private ArticleFilter filter = new ArticleFilter();
+    private List<String> sources = new ArrayList<>();
+
 
     public ArticlesArrayAdapter(@NonNull Context context, @LayoutRes int layoutResourceId, @NonNull List<Cluster> articleClusters) {
         super(context, layoutResourceId, articleClusters);
@@ -68,7 +73,9 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
 
         Cluster cluster = articleClusters.get(position);
         holder.hashtags.setText(tagsToString(cluster.tags));
-        Picasso.with(context).load(cluster.articles.get(0).img).resize(100,100).centerCrop().into(holder.thumbnail);
+        if (cluster.articles.size() > 0) {
+            Picasso.with(context).load(cluster.articles.get(0).img).resize(100, 100).centerCrop().into(holder.thumbnail);
+        }
         holder.articleAxis.updateAxisFromCluster(cluster, context);
 
         return row;
@@ -86,9 +93,11 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     }
 
     public class ArticleFilter extends Filter{
-        private List<String> sources = new ArrayList<>();
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            Log.d("DEBUG", "in performFiltering");
+            Log.d("DEBUG", "results: " + unfiltered);
             FilterResults filterResults = new FilterResults();
 
             final List<Cluster> res = new ArrayList<>();
@@ -102,8 +111,33 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
                 }
             }
 
-            filterResults.values = res;
-            filterResults.count = res.size();
+            // go over returned clusters and re-build them with only valid news sources
+            for (Cluster cluster: res){
+                List<Article> newArticles = new ArrayList<>();
+                for (Article article: cluster.articles)
+                {
+                    Log.d("Source", "checking article");
+                    Log.d("Source", "sources is: " + sources);
+                    if (!sources.contains(article.source)) {
+                        Log.d("Source", "Adding article with source: " + article.source);
+                        newArticles.add(article);
+                    }
+                }
+                cluster.articles = newArticles;
+            }
+
+            final List<Cluster> finalRes = new ArrayList<>();
+
+            for (Cluster cluster: res){
+                if(cluster.articles.size() > 0) {
+                    finalRes.add(cluster);
+                }
+
+            }
+
+
+            filterResults.values = finalRes;
+            filterResults.count = finalRes.size();
 
             return filterResults;
         }
@@ -114,9 +148,12 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
             notifyDataSetChanged();
         }
 
-        public void updateSources(List<String> sources){
-            this.sources = sources;
-        }
+
+    }
+
+    public void updateSources(List<String> NewSources){
+        this.sources = NewSources;
+
     }
 
     @Override

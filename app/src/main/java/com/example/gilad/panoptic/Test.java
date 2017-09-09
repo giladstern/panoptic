@@ -22,7 +22,10 @@ import android.widget.ListView;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class NavItem {
     String mTitle;
@@ -143,29 +146,46 @@ public class Test extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
+    private List<String> NewSources = new ArrayList<String>();
     /*
 * Called when a particular item from the navigation drawer
 * is selected.
+* sources = ["al-jazeera-english","the-new-york-times","bbc-news","cnn","the-wall-street-journal","the-economist", "breitbart-news"]
 * */
     private void selectItemFromDrawer(int position) {
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        map.put(0, "al-jazeera-english");
+        map.put(1, "the-new-york-times");
+        map.put(2, "bbc-news");
+        map.put(3, "cnn");
+        map.put(4, "the-wall-street-journal");
+        map.put(5, "the-economist");
+        map.put(6, "breitbart-news");
 
-        Log.d("MYINT", "value: " + position);
+        String data = getIntent().getStringExtra("data");
+        if (data == "") {
+            return;
+        }
 
-//        Toast.makeText(this, position,
-//                Toast.LENGTH_LONG).show();
+        try {
+            clusters = Cluster.parseClusters(data);
+        } catch (JSONException e) {
+            Log.d("Debug", e.getMessage());
+        }
+        ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
+        if (NewSources.contains(map.get(position)))
+        {
+            NewSources.removeAll(Collections.singleton(map.get(position)));
+        }
+        else {
+            NewSources.add(map.get(position));
+        }
+        adapter.updateSources(NewSources);
+        filter = adapter.getFilter();
+        filter.filter("");
+        ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
 
-        //Fragment fragment = new PreferencesFragment();
-
-        //FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction()
-        //        .replace(R.id.mainContent, fragment)
-        //        .commit();
-
-        //mDrawerList.setItemChecked(position, true);
-        //setTitle(mNavItems.get(position).mTitle);
-
-        // Close the drawer
-        //mDrawerLayout.closeDrawer(mDrawerPane);
+        articlesListView.setAdapter(adapter);
     }
 
     // Called when invalidateOptionsMenu() is invoked
@@ -188,9 +208,13 @@ public class Test extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mNavItems.add(new NavItem("Aljazeera"));
-        mNavItems.add(new NavItem("The New York Times"));
-        mNavItems.add(new NavItem("WSJ"));
+        mNavItems.add(new NavItem("Aljazeera")); // 0
+        mNavItems.add(new NavItem("The New York Times")); // 1
+        mNavItems.add(new NavItem("BBC News")); // 2
+        mNavItems.add(new NavItem("CNN")); // 3
+        mNavItems.add(new NavItem("Wall Street Journal")); // 4
+        mNavItems.add(new NavItem("The Economist")); // 5
+        mNavItems.add(new NavItem("Breitbart")); // 6
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
