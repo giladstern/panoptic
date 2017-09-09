@@ -183,9 +183,6 @@ public class Test extends AppCompatActivity {
         }
         adapter.updateSources(NewSources);
         filter.filter("");
-        ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
-
-        articlesListView.setAdapter(adapter);
     }
 
     // Called when invalidateOptionsMenu() is invoked
