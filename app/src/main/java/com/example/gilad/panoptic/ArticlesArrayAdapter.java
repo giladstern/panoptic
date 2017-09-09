@@ -156,7 +156,7 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     }
 
     public void updateClusters(List<Cluster> clusters) {
-        this.articleClusters = clusters;
+        this.unfiltered = clusters;
     }
 
     @Override

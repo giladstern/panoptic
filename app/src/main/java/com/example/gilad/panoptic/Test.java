@@ -168,12 +168,6 @@ public class Test extends AppCompatActivity {
             return;
         }
 
-        try {
-            clusters = Cluster.parseClusters(data);
-        } catch (JSONException e) {
-            Log.d("Debug", e.getMessage());
-        }
-
         if (NewSources.contains(map.get(position)))
         {
             NewSources.removeAll(Collections.singleton(map.get(position)));
