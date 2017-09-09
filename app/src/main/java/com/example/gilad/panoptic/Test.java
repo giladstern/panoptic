@@ -86,9 +86,10 @@ class DrawerListAdapter extends BaseAdapter {
 
 public class Test extends AppCompatActivity {
 
-    List<Cluster> clusters = null;
-    Filter filter = null;
+    private List<Cluster> clusters = null;
+    private Filter filter = null;
     private RelativeLayout linearLayout;
+    private ArticlesArrayAdapter adapter = null;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.custom_menu, menu);
@@ -172,7 +173,7 @@ public class Test extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d("Debug", e.getMessage());
         }
-        ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
+
         if (NewSources.contains(map.get(position)))
         {
             NewSources.removeAll(Collections.singleton(map.get(position)));
@@ -181,7 +182,6 @@ public class Test extends AppCompatActivity {
             NewSources.add(map.get(position));
         }
         adapter.updateSources(NewSources);
-        filter = adapter.getFilter();
         filter.filter("");
         ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
 
@@ -268,8 +268,8 @@ public class Test extends AppCompatActivity {
             Log.d("Debug", e.getMessage());
         }
 
-        ArticlesArrayAdapter adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
-        filter = adapter.getFilter();
+        this.adapter = new ArticlesArrayAdapter(Test.this, R.layout.list_row, clusters);
+        this.filter = adapter.getFilter();
         ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
 
         articlesListView.setAdapter(adapter);
