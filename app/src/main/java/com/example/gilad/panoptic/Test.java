@@ -229,16 +229,11 @@ public class Test extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-
-                invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                Log.d("TAG", "onDrawerClosed: " + getTitle());
-
-                invalidateOptionsMenu();
             }
         };
 
