@@ -165,7 +165,7 @@ public class Test extends AppCompatActivity {
 
         String data = getIntent().getStringExtra("data");
         if (data == "") {
-            return true;
+            return false;
         }
 
         boolean retVal;
@@ -173,16 +173,18 @@ public class Test extends AppCompatActivity {
         if (NewSources.contains(map.get(position)))
         {
             NewSources.removeAll(Collections.singleton(map.get(position)));
-            retVal = true;
+            retVal = false;
         }
         else {
             NewSources.add(map.get(position));
-            retVal = false;
+            retVal = true;
         }
 
         filter.updateSources(NewSources);
         filter.filter("");
 
+
+        //Return false means it ends up not being clicked and true clicked.
         return retVal;
     }
 
