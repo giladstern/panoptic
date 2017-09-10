@@ -3,6 +3,7 @@ package com.example.gilad.panoptic;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -251,9 +252,14 @@ public class Test extends AppCompatActivity {
 
                 // TODO: choose normal colors.
                 if(selectItemFromDrawer(position)){
-                    view.setBackgroundResource(R.color.grey);
+                    view.setBackgroundResource(R.color.white);
+                    TextView titleView = (TextView) view.findViewById(R.id.title);
+                    titleView.setTextColor(Color.rgb(211,211,211));
+
                 } else {
                     view.setBackgroundResource(R.color.white);
+                    TextView titleView = (TextView) view.findViewById(R.id.title);
+                    titleView.setTextColor(Color.BLACK);
                 }
             }
         });
