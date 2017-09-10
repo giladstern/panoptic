@@ -30,6 +30,11 @@ public class Cluster implements Serializable{
         }
     }
 
+    public Cluster(List<Article> articles, List<String> tags){
+        this.articles = articles;
+        this.tags = tags;
+    }
+
     public static List<Cluster> parseClusters(String data) throws JSONException{
         data = data.replace("u'", "'").replace("u\"","\"");
         JSONArray array = new JSONArray(data);

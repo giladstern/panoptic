@@ -29,7 +29,7 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
     private List<Cluster> unfiltered = null;
     private List<Cluster> articleClusters = null;
     private ArticleFilter filter = new ArticleFilter();
-    private List<String> sources = new ArrayList<>();
+
 
     public ArticlesArrayAdapter(@NonNull Context context, @LayoutRes int layoutResourceId, @NonNull List<Cluster> articleClusters) {
         super(context, layoutResourceId, articleClusters);
@@ -87,11 +87,13 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
         ArticleAxisView articleAxis;
     }
 
-    public Filter getFilter() {
+    public ArticleFilter getFilter() {
         return filter;
     }
 
     public class ArticleFilter extends Filter{
+
+        private List<String> sources = new ArrayList<>();
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -104,39 +106,26 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
             for (Cluster cluster: unfiltered){
                 for (String tag : cluster.tags){
                     if (tag.startsWith((String) constraint)){
-                        res.add(cluster);
+
+                        List<Article> newArticles = new ArrayList<>();
+                        for (Article article: cluster.articles)
+                        {
+                            if (!sources.contains(article.source)) {
+                                newArticles.add(article);
+                            }
+                        }
+
+                        if (newArticles.size() > 0) {
+                            res.add(new Cluster(newArticles, cluster.tags));
+                        }
                         break;
                     }
                 }
             }
 
-            // go over returned clusters and re-build them with only valid news sources
-            for (Cluster cluster: res){
-                List<Article> newArticles = new ArrayList<>();
-                for (Article article: cluster.articles)
-                {
-                    Log.d("Source", "checking article");
-                    Log.d("Source", "sources is: " + sources);
-                    if (!sources.contains(article.source)) {
-                        Log.d("Source", "Adding article with source: " + article.source);
-                        newArticles.add(article);
-                    }
-                }
-                cluster.articles = newArticles;
-            }
 
-            final List<Cluster> finalRes = new ArrayList<>();
-
-            for (Cluster cluster: res){
-                if(cluster.articles.size() > 0) {
-                    finalRes.add(cluster);
-                }
-
-            }
-
-
-            filterResults.values = finalRes;
-            filterResults.count = finalRes.size();
+            filterResults.values = res;
+            filterResults.count = res.size();
 
             return filterResults;
         }
@@ -148,11 +137,10 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Cluster> implements Filte
         }
 
 
-    }
-
-    public void updateSources(List<String> NewSources){
-        this.sources = NewSources;
-
+        public void updateSources(List<String> NewSources){
+            this.sources = NewSources;
+            filter("");
+        }
     }
 
     public void updateClusters(List<Cluster> clusters) {

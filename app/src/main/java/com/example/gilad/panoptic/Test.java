@@ -87,7 +87,7 @@ class DrawerListAdapter extends BaseAdapter {
 public class Test extends AppCompatActivity {
 
     private List<Cluster> clusters = null;
-    private Filter filter = null;
+    private ArticlesArrayAdapter.ArticleFilter filter = null;
     private RelativeLayout linearLayout;
     private ArticlesArrayAdapter adapter = null;
 
@@ -153,7 +153,7 @@ public class Test extends AppCompatActivity {
 * is selected.
 * sources = ["al-jazeera-english","the-new-york-times","bbc-news","cnn","the-wall-street-journal","the-economist", "breitbart-news"]
 * */
-    private void selectItemFromDrawer(int position) {
+    private boolean selectItemFromDrawer(int position) {
         Map<Integer, String> map = new HashMap<Integer, String>();
         map.put(0, "al-jazeera-english");
         map.put(1, "the-new-york-times");
@@ -165,25 +165,25 @@ public class Test extends AppCompatActivity {
 
         String data = getIntent().getStringExtra("data");
         if (data == "") {
-            return;
+            return true;
         }
 
-        try {
-            clusters = Cluster.parseClusters(data);
-        } catch (JSONException e) {
-            Log.d("Debug", e.getMessage());
-        }
+        boolean retVal;
 
         if (NewSources.contains(map.get(position)))
         {
             NewSources.removeAll(Collections.singleton(map.get(position)));
+            retVal = true;
         }
         else {
             NewSources.add(map.get(position));
+            retVal = false;
         }
-        adapter.updateSources(NewSources);
-        adapter.updateClusters(clusters);
+
+        filter.updateSources(NewSources);
         filter.filter("");
+
+        return retVal;
     }
 
     // Called when invalidateOptionsMenu() is invoked
@@ -251,7 +251,13 @@ public class Test extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItemFromDrawer(position);
+
+                // TODO: choose normal colors.
+                if(selectItemFromDrawer(position)){
+                    view.setBackgroundResource(R.color.grey);
+                } else {
+                    view.setBackgroundResource(R.color.white);
+                }
             }
         });
 
@@ -271,6 +277,5 @@ public class Test extends AppCompatActivity {
         ListView articlesListView = (ListView) findViewById(R.id.articles_list_view);
 
         articlesListView.setAdapter(adapter);
-
     }
 }
